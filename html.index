@@ -1,0 +1,1724 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نخلة بابل للسياحة والسفر | Palm of Babylon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary-blue: #1a5f9e;
+            --dark-blue: #0d3a5c;
+            --light-blue: #e8f4fc;
+            --orange: #f26522;
+            --white: #ffffff;
+            --dark: #1a1a1a;
+            --gray: #666666;
+            --whatsapp: #25d366;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-hero: linear-gradient(135deg, #e8f4fc 0%, #ffffff 100%);
+            --text-primary: #1a1a1a;
+            --text-secondary: #666666;
+            --card-bg: #ffffff;
+            --card-border: #eee;
+            --footer-bg: #1a1a1a;
+            --header-bg: #ffffff;
+            --header-shadow: 0 2px 20px rgba(0,0,0,0.08);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-hero: linear-gradient(135deg, #0d3a5c 0%, #0f172a 100%);
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --card-bg: #1e293b;
+            --card-border: #334155;
+            --footer-bg: #020617;
+            --header-bg: #0f172a;
+            --header-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            overflow-x: hidden;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 100px;
+            left: 20px;
+            z-index: 999;
+            background: var(--orange);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 20px rgba(242, 101, 34, 0.4);
+            transition: all 0.3s;
+        }
+
+        .theme-toggle:hover { transform: scale(1.1); }
+        [data-theme="dark"] .theme-toggle { background: #fbbf24; }
+        .theme-toggle .sun { display: none; }
+        [data-theme="dark"] .theme-toggle .sun { display: block; }
+        [data-theme="dark"] .theme-toggle .moon { display: none; }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--header-bg);
+            box-shadow: var(--header-shadow);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            height: 65px;
+            width: auto;
+            object-fit: contain;
+            transition: all 0.3s;
+        }
+
+        [data-theme="dark"] .logo-img {
+            filter: brightness(1.3) contrast(1.1);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 1.05rem;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--primary-blue); }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            width: 0;
+            height: 3px;
+            background: var(--orange);
+            border-radius: 2px;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after { width: 100%; }
+
+        .cta-btn {
+            background: var(--orange);
+            color: var(--white) !important;
+            padding: 0.6rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s !important;
+        }
+
+        .cta-btn:hover { background: var(--primary-blue); transform: translateY(-2px); }
+        .cta-btn::after { display: none !important; }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.8rem;
+            color: var(--primary-blue);
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 5px;
+            z-index: 1001;
+        }
+
+        .nav-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 998;
+        }
+
+        .nav-overlay.active { display: block; }
+
+        .hero {
+            min-height: 100vh;
+            background: var(--bg-hero);
+            display: flex;
+            align-items: center;
+            padding-top: 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(26,95,158,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        [data-theme="dark"] .hero::before {
+            background: radial-gradient(circle, rgba(242,101,34,0.05) 0%, transparent 70%);
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .hero-logo-main {
+            width: 100%;
+            max-width: 320px;
+            height: auto;
+            margin-bottom: 1rem;
+            object-fit: contain;
+        }
+
+        [data-theme="dark"] .hero-logo-main {
+            filter: brightness(1.3) contrast(1.1);
+        }
+
+        .hero-content h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            line-height: 1.3;
+            color: var(--dark-blue);
+        }
+
+        [data-theme="dark"] .hero-content h1 { color: #60a5fa; }
+        .hero-content h1 span { color: var(--orange); }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 500px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-blue);
+            color: var(--white);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            background: var(--dark-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(26,95,158,0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-blue);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border: 2px solid var(--primary-blue);
+            transition: all 0.3s;
+        }
+
+        [data-theme="dark"] .btn-secondary { color: #60a5fa; border-color: #60a5fa; }
+        .btn-secondary:hover { background: var(--primary-blue); color: var(--white); }
+        [data-theme="dark"] .btn-secondary:hover { background: #60a5fa; color: #0f172a; }
+
+        .hero-image { position: relative; }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+        }
+
+        .floating-card {
+            position: absolute;
+            background: var(--card-bg);
+            padding: 1.2rem 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+
+        .card-1 { top: 20%; left: -30px; animation: float 3s ease-in-out infinite; }
+        .card-2 { bottom: 15%; right: -20px; animation: float 3s ease-in-out infinite 0.5s; }
+
+        .floating-card h4 { color: var(--orange); font-size: 1.8rem; font-weight: 800; }
+        .floating-card p { color: var(--text-secondary); font-size: 0.9rem; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
+
+        .stats { background: var(--primary-blue); padding: 4rem 2rem; }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item h3 { color: var(--orange); font-size: 3rem; font-weight: 800; }
+        .stat-item p { color: var(--white); font-size: 1.1rem; margin-top: 0.5rem; }
+
+        .services { padding: 6rem 2rem; background: var(--bg-primary); }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-header h2 { font-size: 2.5rem; color: var(--dark-blue); margin-bottom: 1rem; }
+        [data-theme="dark"] .section-header h2 { color: #60a5fa; }
+        .section-header h2 span { color: var(--orange); }
+        .section-header p { color: var(--text-secondary); font-size: 1.1rem; }
+
+        .services-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid var(--card-border);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            border-color: var(--primary-blue);
+        }
+
+        .service-icon {
+            width: 90px;
+            height: 90px;
+            background: var(--light-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2.5rem;
+            transition: all 0.3s;
+        }
+
+        [data-theme="dark"] .service-icon { background: rgba(26, 95, 158, 0.2); }
+        .service-card:hover .service-icon { background: var(--primary-blue); }
+        .service-card h3 { color: var(--text-primary); font-size: 1.4rem; margin-bottom: 1rem; }
+        .service-card p { color: var(--text-secondary); font-size: 0.95rem; }
+
+        .destinations { padding: 6rem 2rem; background: var(--bg-secondary); }
+
+        .destinations-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .destination-card {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            height: 380px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .destination-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .destination-card:hover img { transform: scale(1.1); }
+
+        .destination-overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 2rem 1.5rem 1.5rem;
+            background: linear-gradient(transparent 0%, rgba(13,58,92,0.95) 100%);
+            color: var(--white);
+        }
+
+        .destination-overlay h4 { font-size: 1.5rem; margin-bottom: 0.5rem; font-weight: 800; }
+
+        .duration-tag {
+            background: rgba(255,255,255,0.2);
+            color: var(--white);
+            padding: 0.4rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .why-us { padding: 6rem 2rem; background: var(--bg-primary); }
+
+        .why-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .why-image { position: relative; }
+
+        .why-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+        }
+
+        .experience-badge {
+            position: absolute;
+            bottom: -20px;
+            left: -20px;
+            background: var(--orange);
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(242, 101, 34, 0.3);
+        }
+
+        .experience-badge h4 { font-size: 3rem; font-weight: 800; }
+        .experience-badge p { font-size: 1rem; }
+
+        .why-content h2 { font-size: 2.5rem; color: var(--dark-blue); margin-bottom: 1.5rem; }
+        [data-theme="dark"] .why-content h2 { color: #60a5fa; }
+        .why-content h2 span { color: var(--orange); }
+        .why-content > p { color: var(--text-secondary); margin-bottom: 2rem; font-size: 1.05rem; }
+        .why-list { list-style: none; }
+
+        .why-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .check-icon {
+            width: 30px;
+            height: 30px;
+            min-width: 30px;
+            background: var(--light-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+            font-weight: bold;
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+
+        [data-theme="dark"] .check-icon { background: rgba(26, 95, 158, 0.2); color: #60a5fa; }
+        .why-list h4 { color: var(--text-primary); margin-bottom: 0.3rem; }
+        .why-list p { color: var(--text-secondary); font-size: 0.95rem; }
+
+        .contact {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--dark-blue) 0%, var(--primary-blue) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        [data-theme="dark"] .contact { background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%); }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(242,101,34,0.15) 0%, transparent 70%);
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-info h2 { color: var(--white); font-size: 2.5rem; margin-bottom: 1.5rem; }
+        .contact-info h2 span { color: var(--orange); }
+        .contact-info > p { color: rgba(255,255,255,0.9); margin-bottom: 2.5rem; font-size: 1.05rem; }
+
+        .contact-details { display: flex; flex-direction: column; gap: 1.5rem; }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            color: var(--white);
+        }
+
+        .contact-icon {
+            width: 55px;
+            height: 55px;
+            min-width: 55px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .contact-item:hover .contact-icon { background: var(--orange); }
+        .contact-text h4 { font-size: 1.1rem; margin-bottom: 0.3rem; }
+        .contact-text p { color: rgba(255,255,255,0.85); font-size: 0.95rem; line-height: 1.6; }
+
+        .phone-row {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.5rem;
+        }
+
+        .phone-link {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-size: 1rem;
+            direction: ltr;
+            display: inline-block;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .phone-link:hover { color: var(--orange); }
+
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: var(--whatsapp);
+            color: var(--white) !important;
+            padding: 0.4rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .whatsapp-btn:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3); }
+
+        .location-badge {
+            display: inline-block;
+            background: var(--orange);
+            color: var(--white);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .map-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--orange);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+            transition: all 0.3s;
+        }
+
+        .map-link:hover { color: #fff; text-decoration: underline; }
+
+        .contact-form {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+
+        .contact-form h3 { color: var(--dark-blue); margin-bottom: 1.5rem; font-size: 1.5rem; }
+        [data-theme="dark"] .contact-form h3 { color: #60a5fa; }
+
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; color: var(--text-primary); font-weight: 500; }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--card-border);
+            border-radius: 12px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(26, 95, 158, 0.15);
+        }
+
+        .form-group textarea { min-height: 120px; resize: vertical; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+        .custom-select-wrapper { position: relative; }
+
+        .custom-select-trigger {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            border: 2px solid var(--card-border);
+            border-radius: 12px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1rem;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            user-select: none;
+            min-height: 54px;
+        }
+
+        .custom-select-trigger:hover { border-color: var(--primary-blue); }
+
+        .custom-select-trigger.open {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(26, 95, 158, 0.15);
+            border-radius: 12px 12px 0 0;
+        }
+
+        .custom-select-trigger.error { border-color: #ef4444 !important; }
+
+        .custom-select-trigger .trigger-img {
+            width: 40px; height: 30px;
+            border-radius: 6px;
+            object-fit: cover;
+            flex-shrink: 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+
+        .custom-select-trigger .trigger-text { flex: 1; }
+        .custom-select-trigger .trigger-placeholder { color: var(--text-secondary); }
+
+        .custom-select-trigger .trigger-arrow {
+            font-size: 0.7rem;
+            transition: transform 0.3s;
+            color: var(--text-secondary);
+            flex-shrink: 0;
+        }
+
+        .custom-select-trigger.open .trigger-arrow { transform: rotate(180deg); }
+
+        .custom-select-dropdown {
+            position: absolute;
+            top: 100%; left: 0; right: 0;
+            background: var(--card-bg);
+            border: 2px solid var(--primary-blue);
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            max-height: 0;
+            overflow: hidden;
+            z-index: 100;
+            transition: max-height 0.3s ease;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .custom-select-dropdown.open { max-height: 400px; overflow-y: auto; }
+
+        .custom-option {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.7rem 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .custom-option:last-child { border-bottom: none; }
+        .custom-option:hover { background: var(--light-blue); }
+        [data-theme="dark"] .custom-option:hover { background: rgba(26, 95, 158, 0.2); }
+        .custom-option.selected { background: rgba(26, 95, 158, 0.1); }
+
+        .custom-option .option-img {
+            width: 55px; height: 40px;
+            border-radius: 8px;
+            object-fit: cover;
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+            transition: transform 0.2s;
+        }
+
+        .custom-option:hover .option-img { transform: scale(1.05); }
+        .custom-option .option-info { flex: 1; min-width: 0; }
+        .custom-option .option-name { font-weight: 600; color: var(--text-primary); font-size: 0.95rem; }
+        .custom-option .option-duration { font-size: 0.75rem; color: var(--text-secondary); }
+        .custom-option.no-img { padding: 0.9rem 1rem; }
+        .custom-option.no-img .option-icon { font-size: 1.3rem; width: 40px; text-align: center; flex-shrink: 0; }
+
+        .destination-preview {
+            margin-top: 0.8rem;
+            border-radius: 12px;
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            transition: max-height 0.4s ease, opacity 0.3s ease;
+        }
+
+        .destination-preview.show { max-height: 220px; opacity: 1; }
+
+        .destination-preview .preview-card {
+            position: relative;
+            height: 160px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .destination-preview .preview-card img { width: 100%; height: 100%; object-fit: cover; }
+
+        .destination-preview .preview-overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 1rem;
+            background: linear-gradient(transparent 0%, rgba(13,58,92,0.9) 100%);
+            color: white;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
+
+        .destination-preview .preview-name { font-weight: 700; font-size: 1.1rem; }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--orange);
+            color: var(--white);
+            padding: 1rem;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .submit-btn:hover { background: var(--dark-blue); transform: translateY(-2px); }
+
+        .form-success { display: none; text-align: center; padding: 2rem; }
+        .form-success.show { display: block; }
+        .form-success .success-icon { font-size: 4rem; margin-bottom: 1rem; }
+        .form-success h4 { color: var(--primary-blue); font-size: 1.3rem; margin-bottom: 0.5rem; }
+        [data-theme="dark"] .form-success h4 { color: #60a5fa; }
+        .form-success p { color: var(--text-secondary); }
+
+        .floating-whatsapp { position: fixed; bottom: 25px; left: 25px; z-index: 999; }
+
+        .floating-whatsapp a {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: var(--whatsapp);
+            color: var(--white);
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s;
+            animation: pulse-whatsapp 2s infinite;
+        }
+
+        @keyframes pulse-whatsapp {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        .floating-whatsapp a:hover { transform: translateY(-5px); animation: none; }
+        .floating-whatsapp .wa-icon { font-size: 1.5rem; }
+
+        footer {
+            background: var(--footer-bg);
+            color: var(--white);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .footer-brand .logo-footer {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            gap: 10px;
+        }
+
+        .footer-logo-img {
+            height: 80px;
+            width: auto;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+        }
+
+        .footer-brand > p { color: rgba(255,255,255,0.8); line-height: 1.8; margin-bottom: 1.5rem; }
+        .footer-contact { margin-bottom: 1.5rem; }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.95rem;
+        }
+
+        .footer-contact-item .fc-icon { color: var(--orange); flex-shrink: 0; width: 20px; text-align: center; }
+        .footer-phone { direction: ltr; display: inline-block; }
+
+        .social-links { display: flex; gap: 1rem; }
+
+        .social-links a {
+            width: 45px; height: 45px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 1.2rem;
+        }
+
+        .social-links a:hover { background: var(--orange); transform: translateY(-3px); }
+
+        .footer-links h4 { color: var(--orange); margin-bottom: 1.5rem; font-size: 1.2rem; }
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 0.8rem; }
+        .footer-links a { color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--orange); }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(26, 95, 158, 0.3);
+        }
+
+        .back-to-top.visible { opacity: 1; visibility: visible; }
+        .back-to-top:hover { background: var(--dark-blue); transform: translateY(-3px); }
+
+        @media (max-width: 1024px) {
+            .hero-container, .why-container, .contact-container { grid-template-columns: 1fr; }
+            .hero-image { order: -1; }
+            .hero-logo-main { max-width: 280px; }
+            .services-grid, .destinations-grid { grid-template-columns: repeat(2, 1fr); }
+            .stats-container { grid-template-columns: repeat(2, 1fr); }
+            .footer-container { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .theme-toggle { top: 90px; left: 15px; width: 45px; height: 45px; font-size: 1.3rem; }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%; left: 0; right: 0;
+                background: var(--header-bg);
+                flex-direction: column;
+                padding: 1.5rem 2rem;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+                gap: 0;
+                border-top: 2px solid var(--orange);
+            }
+
+            .nav-links.active { display: flex; }
+            .nav-links li { padding: 0.8rem 0; border-bottom: 1px solid var(--card-border); }
+            .nav-links li:last-child { border-bottom: none; padding-top: 1rem; }
+            .nav-links a { display: block; font-size: 1.1rem; }
+            .nav-links a::after { display: none; }
+            .mobile-menu { display: block; }
+            .hero { padding-top: 90px; }
+            .hero-content h1 { font-size: 2rem; }
+            .hero-logo-main { max-width: 220px; }
+            .services-grid, .destinations-grid, .stats-container { grid-template-columns: 1fr; }
+            .footer-container { grid-template-columns: 1fr; }
+            .floating-card { display: none; }
+            .experience-badge { left: 20px; bottom: 20px; padding: 1.5rem; }
+            .experience-badge h4 { font-size: 2rem; }
+            .floating-whatsapp { bottom: 20px; left: 20px; }
+            .floating-whatsapp a { padding: 0.9rem; border-radius: 50%; }
+            .floating-whatsapp .whatsapp-text { display: none; }
+            .destination-card { height: 320px; }
+            .logo-img { height: 50px; }
+            .section-header h2 { font-size: 2rem; }
+            .form-row { grid-template-columns: 1fr; }
+            .back-to-top { bottom: 80px; right: 15px; width: 45px; height: 45px; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 { font-size: 1.7rem; }
+            .hero-content p { font-size: 1.05rem; }
+            .btn-primary, .btn-secondary { padding: 0.85rem 1.8rem; font-size: 1rem; }
+            .hero-buttons { flex-direction: column; align-items: stretch; text-align: center; }
+            .contact-form { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" id="themeToggle" title="تبديل الوضع">
+        <span class="moon">🌙</span>
+        <span class="sun">☀️</span>
+    </button>
+
+    <button class="back-to-top" id="backToTop" title="العودة للأعلى">↑</button>
+
+    <header id="mainHeader">
+        <nav class="nav-container">
+            <a href="#home" class="logo">
+                <img src="logo.png" alt="نخلة بابل" class="logo-img">
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">الرئيسية</a></li>
+                <li><a href="#services">خدماتنا</a></li>
+                <li><a href="#destinations">الوجهات</a></li>
+                <li><a href="#about">من نحن</a></li>
+                <li><a href="#contact" class="cta-btn">احجز الآن</a></li>
+            </ul>
+            <button class="mobile-menu" id="mobileMenu">☰</button>
+        </nav>
+        <div class="nav-overlay" id="navOverlay"></div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <div class="hero-content">
+                <img src="logo.png" alt="نخلة بابل للسياحة والسفر" class="hero-logo-main">
+                <h1>اكتشف العالم مع <span>نخلة بابل</span></h1>
+                <p>نحن نصنع رحلات لا تُنسى. من حجز تذاكر الطيران إلى ترتيب أفضل الفنادق والجولات السياحية، نحن معك في كل خطوة.</p>
+                <div class="hero-buttons">
+                    <a href="#destinations" class="btn-primary">استكشف الوجهات ←</a>
+                    <a href="#contact" class="btn-secondary">تواصل معنا</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=600&q=80" alt="سفر وسياحة">
+                <div class="floating-card card-1">
+                    <h4>+5000</h4>
+                    <p>عميل سعيد</p>
+                </div>
+                <div class="floating-card card-2">
+                    <h4>+50</h4>
+                    <p>وجهة حول العالم</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-item animate-on-scroll">
+                <h3><span class="counter" data-target="15">0</span>+</h3>
+                <p>سنة خبرة</p>
+            </div>
+            <div class="stat-item animate-on-scroll">
+                <h3><span class="counter" data-target="5000">0</span>+</h3>
+                <p>عميل سعيد</p>
+            </div>
+            <div class="stat-item animate-on-scroll">
+                <h3><span class="counter" data-target="50">0</span>+</h3>
+                <p>وجهة سياحية</p>
+            </div>
+            <div class="stat-item animate-on-scroll">
+                <h3>24/7</h3>
+                <p>دعم مخصص</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="services" id="services">
+        <div class="section-header animate-on-scroll">
+            <h2>خدماتنا <span>المتميزة</span></h2>
+            <p>نقدم لك مجموعة شاملة من خدمات السفر والسياحة لتجربة سلسة ومريحة</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon"><span>✈️</span></div>
+                <h3>حجز تذاكر الطيران</h3>
+                <p>أفضل الأسعار على تذاكر الطيران لجميع الوجهات العالمية مع خيارات مرنة للتعديل والإلغاء</p>
+            </div>
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon"><span>🏨</span></div>
+                <h3>حجز الفنادق</h3>
+                <p>اختيار واسع من الفنادق الفاخرة والاقتصادية مع تأكيد فوري وضمان أفضل سعر</p>
+            </div>
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon"><span>🕌</span></div>
+                <h3>العمرة والزيارة</h3>
+                <p>باقات متكاملة لأداء العمرة والزيارة تشمل الإقامة والنقل والخدمات اللوجستية</p>
+            </div>
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon"><span>🎫</span></div>
+                <h3>التأشيرات السياحية</h3>
+                <p>إنجاز معاملات التأشيرات بسرعة وكفاءة مع متابعة مستمرة لحالة الطلب</p>
+            </div>
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon"><span>🚗</span></div>
+                <h3>المواصلات والنقل</h3>
+                <p>خدمات نقل مريحة من وإلى المطار، بالإضافة إلى تأجير السيارات في الوجهة</p>
+            </div>
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon"><span>🎯</span></div>
+                <h3>الجولات السياحية</h3>
+                <p>برامج سياحية منظمة مع مرشدين محترفين لاستكشاف أجمل المعالم العالمية</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="destinations" id="destinations">
+        <div class="section-header animate-on-scroll">
+            <h2>وجهاتنا <span>المميزة</span></h2>
+            <p>اختر من بين أفضل العروض السياحية المُعدة خصيصاً لك</p>
+        </div>
+        <div class="destinations-grid">
+            <div class="destination-card animate-on-scroll">
+                <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=400&q=80" alt="فيزا بالي">
+                <div class="destination-overlay">
+                    <h4>فيزا بالي</h4>
+                    <span class="duration-tag">⏱ 10-15 يوم عمل</span>
+                </div>
+            </div>
+            <div class="destination-card animate-on-scroll">
+                <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80" alt="فيزا قطر">
+                <div class="destination-overlay">
+                    <h4>فيزا قطر</h4>
+                    <span class="duration-tag">⏱ 5-15 يوم عمل</span>
+                </div>
+            </div>
+            <div class="destination-card animate-on-scroll">
+                <img src="https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=400&q=80" alt="فيزا جورجيا">
+                <div class="destination-overlay">
+                    <h4>فيزا جورجيا</h4>
+                    <span class="duration-tag">⏱ 10-15 يوم عمل</span>
+                </div>
+            </div>
+            <div class="destination-card animate-on-scroll">
+                <img src="https://images.unsplash.com/photo-1572252009286-268acec5ca0a?w=400&q=80" alt="موافقة مصر">
+                <div class="destination-overlay">
+                    <h4>موافقة مصر</h4>
+                    <span class="duration-tag">⏱ 7-14 يوم عمل</span>
+                </div>
+            </div>
+            <div class="destination-card animate-on-scroll">
+                <img src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=400&q=80" alt="تأشيرة تايلند">
+                <div class="destination-overlay">
+                    <h4>تأشيرة تايلند</h4>
+                    <span class="duration-tag">⏱ 72 ساعة عمل</span>
+                </div>
+            </div>
+            <div class="destination-card animate-on-scroll">
+                <img src="https://images.unsplash.com/photo-1518684079-3c830dcef090?w=400&q=80" alt="تأشيرة دبي">
+                <div class="destination-overlay">
+                    <h4>تأشيرة دبي</h4>
+                    <span class="duration-tag">⏱ 72 ساعة عمل</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="why-us" id="about">
+        <div class="why-container">
+            <div class="why-image animate-on-scroll">
+                <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600&q=80" alt="سفر وسياحة">
+                <div class="experience-badge">
+                    <h4>15+</h4>
+                    <p>سنة من<br>الخبرة</p>
+                </div>
+            </div>
+            <div class="why-content animate-on-scroll">
+                <h2>لماذا تختار <span>نخلة بابل</span>؟</h2>
+                <p>نحن لسنا مجرد وكالة سفر، نحن شريكك في صناعة ذكريات لا تُنسى. نجمع بين الخبرة العميقة والشغف بالسفر لتقديم تجربة فريدة.</p>
+                <ul class="why-list">
+                    <li>
+                        <div class="check-icon">✓</div>
+                        <div>
+                            <h4>أسعار تنافسية</h4>
+                            <p>نضمن لك أفضل الأسعار مع خيارات تناسب جميع الميزانيات</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="check-icon">✓</div>
+                        <div>
+                            <h4>دعم على مدار الساعة</h4>
+                            <p>فريقنا متواجد 24/7 لمساعدتك في أي وقت ومن أي مكان</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="check-icon">✓</div>
+                        <div>
+                            <h4>برامج مخصصة</h4>
+                            <p>نصمم رحلتك حسب تفضيلاتك واحتياجاتك الخاصة</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="check-icon">✓</div>
+                        <div>
+                            <h4>شراكات عالمية</h4>
+                            <p>نتعاون مع أفضل خطوط الطيران والفنادق حول العالم</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="contact-container">
+            <div class="contact-info animate-on-scroll">
+                <h2>ابدأ رحلتك <span>الآن</span></h2>
+                <p>تواصل معنا للحصول على استشارة مجانية وعرض سعر مخصص لرحلتك القادمة. نحن متواجدون في بغداد وإسطنبول لخدمتك.</p>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-text">
+                            <span class="location-badge">العراق</span>
+                            <h4>العنوان - بغداد</h4>
+                            <p>بغداد - نفق الشرطة - مقابل مصرف بغداد - مجاور معرض الشهم للسيارات</p>
+                            <a href="https://maps.app.goo.gl/R28g7GzwkhCs5Lgc8" target="_blank" class="map-link">🗺️ عرض على الخريطة</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-text">
+                            <span class="location-badge">تركيا</span>
+                            <h4>العنوان - إسطنبول</h4>
+                            <p>تركيا - إسطنبول - يوسف باشا</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div class="contact-text">
+                            <h4>أرقام الهاتف - العراق</h4>
+                            <div class="phone-row">
+                                <a href="tel:+9647843511140" class="phone-link">+964 784 351 1140</a>
+                                <a href="https://wa.me/9647843511140" class="whatsapp-btn" target="_blank">💬 واتساب</a>
+                            </div>
+                            <div class="phone-row">
+                                <a href="tel:+9647738884442" class="phone-link">+964 773 888 4442</a>
+                                <a href="https://wa.me/9647738884442" class="whatsapp-btn" target="_blank">💬 واتساب</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div class="contact-text">
+                            <h4>رقم الهاتف - تركيا</h4>
+                            <div class="phone-row">
+                                <a href="tel:+905538884443" class="phone-link">+90 553 888 4443</a>
+                                <a href="https://wa.me/905538884443" class="whatsapp-btn" target="_blank">💬 واتساب</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">✉️</div>
+                        <div class="contact-text">
+                            <h4>البريد الإلكتروني</h4>
+                            <p><a href="mailto:palm.babylon25@gmail.com" style="color:rgba(255,255,255,0.9);text-decoration:none;">palm.babylon25@gmail.com</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form animate-on-scroll" id="contactFormContainer">
+                <h3>أرسل استفسارك</h3>
+                <form id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fullName">الاسم الكامل</label>
+                            <input type="text" id="fullName" placeholder="أدخل اسمك الكامل" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">رقم الهاتف</label>
+                            <input type="tel" id="phone" placeholder="أدخل رقم هاتفك" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>الوجهة المطلوبة</label>
+                        <input type="hidden" id="destination" name="destination" required>
+                        <div class="custom-select-wrapper" id="customSelectWrapper">
+                            <div class="custom-select-trigger" id="customSelectTrigger">
+                                <span class="trigger-text"><span class="trigger-placeholder">اختر الوجهة</span></span>
+                                <span class="trigger-arrow">▼</span>
+                            </div>
+                            <div class="custom-select-dropdown" id="customSelectDropdown">
+                                <div class="custom-option" data-value="فيزا بالي" data-duration="10-15 يوم عمل" data-img="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=400&q=80">
+                                    <img class="option-img" src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=100&q=60" alt="بالي">
+                                    <div class="option-info">
+                                        <div class="option-name">فيزا بالي</div>
+                                        <div class="option-duration">⏱ 10-15 يوم عمل</div>
+                                    </div>
+                                </div>
+                                <div class="custom-option" data-value="فيزا قطر" data-duration="5-15 يوم عمل" data-img="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80">
+                                    <img class="option-img" src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=100&q=60" alt="قطر">
+                                    <div class="option-info">
+                                        <div class="option-name">فيزا قطر</div>
+                                        <div class="option-duration">⏱ 5-15 يوم عمل</div>
+                                    </div>
+                                </div>
+                                <div class="custom-option" data-value="فيزا جورجيا" data-duration="10-15 يوم عمل" data-img="https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=400&q=80">
+                                    <img class="option-img" src="https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=100&q=60" alt="جورجيا">
+                                    <div class="option-info">
+                                        <div class="option-name">فيزا جورجيا</div>
+                                        <div class="option-duration">⏱ 10-15 يوم عمل</div>
+                                    </div>
+                                </div>
+                                <div class="custom-option" data-value="موافقة مصر" data-duration="7-14 يوم عمل" data-img="https://images.unsplash.com/photo-1572252009286-268acec5ca0a?w=400&q=80">
+                                    <img class="option-img" src="https://images.unsplash.com/photo-1572252009286-268acec5ca0a?w=100&q=60" alt="مصر">
+                                    <div class="option-info">
+                                        <div class="option-name">موافقة مصر</div>
+                                        <div class="option-duration">⏱ 7-14 يوم عمل</div>
+                                    </div>
+                                </div>
+                                <div class="custom-option" data-value="تأشيرة تايلند" data-duration="72 ساعة عمل" data-img="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=400&q=80">
+                                    <img class="option-img" src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=100&q=60" alt="تايلند">
+                                    <div class="option-info">
+                                        <div class="option-name">تأشيرة تايلند</div>
+                                        <div class="option-duration">⏱ 72 ساعة عمل</div>
+                                    </div>
+                                </div>
+                                <div class="custom-option" data-value="تأشيرة دبي" data-duration="72 ساعة عمل" data-img="https://images.unsplash.com/photo-1518684079-3c830dcef090?w=400&q=80">
+                                    <img class="option-img" src="https://images.unsplash.com/photo-1518684079-3c830dcef090?w=100&q=60" alt="دبي">
+                                    <div class="option-info">
+                                        <div class="option-name">تأشيرة دبي</div>
+                                        <div class="option-duration">⏱ 72 ساعة عمل</div>
+                                    </div>
+                                </div>
+                                <div class="custom-option no-img" data-value="وجهة أخرى" data-duration="" data-img="">
+                                    <span class="option-icon">🌍</span>
+                                    <div class="option-info">
+                                        <div class="option-name">وجهة أخرى</div>
+                                        <div class="option-duration">حدد وجهتك في الملاحظات</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="destination-preview" id="destinationPreview">
+                            <div class="preview-card">
+                                <img id="previewImg" src="" alt="معاينة الوجهة">
+                                <div class="preview-overlay">
+                                    <span class="preview-name" id="previewName"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="notes">ملاحظات إضافية</label>
+                        <textarea id="notes" placeholder="اكتب أي تفاصيل إضافية هنا..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <span>إرسال الطلب عبر واتساب</span>
+                        <span>💬</span>
+                    </button>
+                </form>
+                <div class="form-success" id="formSuccess">
+                    <div class="success-icon">✅</div>
+                    <h4>تم إرسال طلبك بنجاح!</h4>
+                    <p>سيتم توجيهك إلى واتساب لإكمال التواصل</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="floating-whatsapp">
+        <a href="https://wa.me/9647738884442?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%AE%D8%AF%D9%85%D8%A7%D8%AA%D9%83%D9%85" target="_blank">
+            <span class="wa-icon">💬</span>
+            <span class="whatsapp-text">تواصل معنا عبر واتساب</span>
+        </a>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="logo-footer">
+                    <img src="logo.png" alt="نخلة بابل" class="footer-logo-img">
+                </div>
+                <p>نخلة بابل للسياحة والسفر - شريكك الموثوق في صناعة أجمل الرحلات والذكريات. نقدم خدمات متكاملة منذ أكثر من 15 عاماً.</p>
+                <div class="footer-contact">
+                    <div class="footer-contact-item">
+                        <span class="fc-icon">📍</span>
+                        <div>العراق - بغداد: نفق الشرطة، مقابل مصرف بغداد</div>
+                    </div>
+                    <div class="footer-contact-item">
+                        <span class="fc-icon">📍</span>
+                        <div>تركيا - إسطنبول: يوسف باشا</div>
+                    </div>
+                    <div class="footer-contact-item">
+                        <span class="fc-icon">📞</span>
+                        <div class="footer-phone">+964 784 351 1140</div>
+                    </div>
+                    <div class="footer-contact-item">
+                        <span class="fc-icon">📞</span>
+                        <div class="footer-phone">+964 773 888 4442</div>
+                    </div>
+                    <div class="footer-contact-item">
+                        <span class="fc-icon">📞</span>
+                        <div class="footer-phone">+90 553 888 4443</div>
+                    </div>
+                    <div class="footer-contact-item">
+                        <span class="fc-icon">✉️</span>
+                        <div>palm.babylon25@gmail.com</div>
+                    </div>
+                </div>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/Palm.babylon/" title="فيسبوك" target="_blank" aria-label="Facebook">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M22.675 0H1.325C0.593 0 0 0.593 0 1.325V22.675C0 23.407 0.593 24 1.325 24H12.82V14.708H9.692V11.076H12.82V8.41C12.82 5.354 14.72 3.697 17.425 3.697C18.744 3.697 19.93 3.79 20.267 3.828V7.009L18.356 7.01C16.885 7.01 16.586 7.762 16.586 8.777V11.076H20.137L19.66 14.708H16.586V24H22.675C23.407 24 24 23.407 24 22.675V1.325C24 0.593 23.407 0 22.675 0Z" fill="#1877F2"/>
+                            <path d="M19.66 14.708L20.137 11.076H16.586V8.777C16.586 7.762 16.885 7.01 18.356 7.01L20.267 7.009V3.828C19.93 3.79 18.744 3.697 17.425 3.697C14.72 3.697 12.82 5.354 12.82 8.41V11.076H9.692V14.708H12.82V24H16.586V14.708H19.66Z" fill="white"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.instagram.com/palm.of.babylon25/" title="إنستغرام" target="_blank" aria-label="Instagram">
+                        <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <linearGradient id="instaGrad" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0%" stop-color="#f58529"/>
+                                <stop offset="50%" stop-color="#dd2a7b"/>
+                                <stop offset="100%" stop-color="#515bd4"/>
+                            </linearGradient>
+                            <path d="M17.5 0H6.5C2.91 0 0 2.91 0 6.5V17.5C0 21.09 2.91 24 6.5 24H17.5C21.09 24 24 21.09 24 17.5V6.5C24 2.91 21.09 0 17.5 0Z" fill="url(#instaGrad)"/>
+                            <path d="M12 7.2C9.35 7.2 7.2 9.35 7.2 12C7.2 14.65 9.35 16.8 12 16.8C14.65 16.8 16.8 14.65 16.8 12C16.8 9.35 14.65 7.2 12 7.2ZM12 14.4C10.56 14.4 9.6 13.44 9.6 12C9.6 10.56 10.56 9.6 12 9.6C13.44 9.6 14.4 10.56 14.4 12C14.4 13.44 13.44 14.4 12 14.4Z" fill="white"/>
+                            <path d="M18.4 4.8C18.4 5.507 17.907 6 17.2 6C16.493 6 16 5.507 16 4.8C16 4.093 16.493 3.6 17.2 3.6C17.907 3.6 18.4 4.093 18.4 4.8ZM20.4 24H3.6C1.61 24 0 22.39 0 20.4V3.6C0 1.61 1.61 0 3.6 0H20.4C22.39 0 24 1.61 24 3.6V20.4C24 22.39 22.39 24 20.4 24ZM21.6 3.6C21.6 2.79 20.81 2 20 2H4C3.19 2 2.4 2.79 2.4 3.6V20.4C2.4 21.21 3.19 22 4 22H20C20.81 22 21.6 21.21 21.6 20.4V3.6Z" fill="white"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>روابط سريعة</h4>
+                <ul>
+                    <li><a href="#home">الرئيسية</a></li>
+                    <li><a href="#services">خدماتنا</a></li>
+                    <li><a href="#destinations">الوجهات</a></li>
+                    <li><a href="#about">من نحن</a></li>
+                    <li><a href="#contact">اتصل بنا</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>خدماتنا</h4>
+                <ul>
+                    <li><a href="#services">حجز تذاكر الطيران</a></li>
+                    <li><a href="#services">حجز الفنادق</a></li>
+                    <li><a href="#services">تأشيرات سياحية</a></li>
+                    <li><a href="#services">العمرة والزيارة</a></li>
+                    <li><a href="#services">برامج سياحية</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>الوجهات الشائعة</h4>
+                <ul>
+                    <li><a href="#destinations">فيزا بالي</a></li>
+                    <li><a href="#destinations">فيزا قطر</a></li>
+                    <li><a href="#destinations">فيزا جورجيا</a></li>
+                    <li><a href="#destinations">موافقة مصر</a></li>
+                    <li><a href="#destinations">تأشيرة دبي</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 نخلة بابل للسياحة والسفر. جميع الحقوق محفوظة | Palm of Babylon Travel & Tourism</p>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const current = html.getAttribute('data-theme');
+            const next = current === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+        });
+
+        // Mobile Menu
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navLinks = document.getElementById('navLinks');
+        const navOverlay = document.getElementById('navOverlay');
+        let menuOpen = false;
+
+        function toggleMenu() {
+            menuOpen = !menuOpen;
+            navLinks.classList.toggle('active', menuOpen);
+            navOverlay.classList.toggle('active', menuOpen);
+            mobileMenu.textContent = menuOpen ? '✕' : '☰';
+            document.body.style.overflow = menuOpen ? 'hidden' : '';
+        }
+
+        function closeMenu() {
+            menuOpen = false;
+            navLinks.classList.remove('active');
+            navOverlay.classList.remove('active');
+            mobileMenu.textContent = '☰';
+            document.body.style.overflow = '';
+        }
+
+        mobileMenu.addEventListener('click', toggleMenu);
+        navOverlay.addEventListener('click', closeMenu);
+        navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const target = document.querySelector(targetId);
+                if (target) {
+                    const headerHeight = document.querySelector('header').offsetHeight;
+                    window.scrollTo({
+                        top: target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 10,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Header & Back to Top
+        const header = document.getElementById('mainHeader');
+        const backToTop = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            const y = window.pageYOffset;
+            header.classList.toggle('scrolled', y > 50);
+            backToTop.classList.toggle('visible', y > 500);
+        });
+
+        backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        // Counter Animation
+        let countersAnimated = false;
+        function animateCounters() {
+            if (countersAnimated) return;
+            document.querySelectorAll('.counter').forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const increment = target / 125;
+                let current = 0;
+                const update = () => {
+                    current += increment;
+                    if (current < target) {
+                        counter.textContent = Math.ceil(current).toLocaleString();
+                        requestAnimationFrame(update);
+                    } else {
+                        counter.textContent = target.toLocaleString();
+                    }
+                };
+                update();
+            });
+            countersAnimated = true;
+        }
+
+        // Scroll Animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    if (entry.target.closest('.stats')) animateCounters();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+        // Active Nav Highlight
+        const sections = document.querySelectorAll('section[id]');
+        const navLinksAll = document.querySelectorAll('.nav-links a:not(.cta-btn)');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                if (window.pageYOffset >= section.offsetTop - header.offsetHeight - 50) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navLinksAll.forEach(link => {
+                link.style.color = '';
+                if (link.getAttribute('href') === '#' + current) link.style.color = 'var(--primary-blue)';
+            });
+        });
+
+        // Form Submission
+        const contactForm = document.getElementById('contactForm');
+        const formSuccess = document.getElementById('formSuccess');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('fullName').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const destination = document.getElementById('destination').value;
+            const notes = document.getElementById('notes').value.trim();
+
+            if (!name || !phone || !destination) {
+                if (!name) document.getElementById('fullName').style.borderColor = '#ef4444';
+                if (!phone) document.getElementById('phone').style.borderColor = '#ef4444';
+                if (!destination) document.getElementById('customSelectTrigger').classList.add('error');
+                return;
+            }
+
+            let message = 'مرحباً، أود الاستفسار عن خدماتكم:\n\n';
+            message += '📋 *الاسم:* ' + name + '\n';
+            message += '📱 *الهاتف:* ' + phone + '\n';
+            message += '✈️ *الوجهة:* ' + destination + '\n';
+            if (notes) message += '📝 *ملاحظات:* ' + notes + '\n';
+            message += '\nتم الإرسال من موقع نخلة بابل';
+
+            contactForm.style.display = 'none';
+            formSuccess.classList.add('show');
+
+            setTimeout(() => {
+                window.open('https://wa.me/9647738884442?text=' + encodeURIComponent(message), '_blank');
+            }, 800);
+
+            setTimeout(() => {
+                contactForm.reset();
+                contactForm.style.display = 'block';
+                formSuccess.classList.remove('show');
+                resetCustomSelect();
+            }, 5000);
+        });
+
+        document.querySelectorAll('#contactForm input, #contactForm textarea').forEach(field => {
+            field.addEventListener('focus', function() { this.style.borderColor = ''; });
+        });
+
+        // Destination Card Click
+        document.querySelectorAll('.destination-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const name = this.querySelector('h4').textContent;
+                const message = 'مرحباً، أود الاستفسار عن: ' + name;
+                window.open('https://wa.me/9647738884442?text=' + encodeURIComponent(message), '_blank');
+            });
+        });
+
+        // Custom Select Dropdown
+        const customTrigger = document.getElementById('customSelectTrigger');
+        const customDropdown = document.getElementById('customSelectDropdown');
+        const customOptions = document.querySelectorAll('.custom-option');
+        const hiddenDestInput = document.getElementById('destination');
+        const destPreview = document.getElementById('destinationPreview');
+        const previewImg = document.getElementById('previewImg');
+        const previewName = document.getElementById('previewName');
+
+        customTrigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = customTrigger.classList.contains('open');
+            if (isOpen) { closeCustomDropdown(); } else { openCustomDropdown(); }
+        });
+
+        function openCustomDropdown() {
+            customTrigger.classList.add('open');
+            customDropdown.classList.add('open');
+            customTrigger.classList.remove('error');
+        }
+
+        function closeCustomDropdown() {
+            customTrigger.classList.remove('open');
+            customDropdown.classList.remove('open');
+        }
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.custom-select-wrapper')) closeCustomDropdown();
+        });
+
+        customOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                const value = option.getAttribute('data-value');
+                const imgUrl = option.getAttribute('data-img');
+
+                hiddenDestInput.value = value;
+
+                const triggerText = customTrigger.querySelector('.trigger-text');
+                if (imgUrl) {
+                    triggerText.innerHTML = '<img class="trigger-img" src="' + imgUrl.replace('w=400&q=80', 'w=100&q=60') + '" alt="' + value + '"> <span>' + value + '</span>';
+                } else {
+                    triggerText.innerHTML = '<span>🌍 ' + value + '</span>';
+                }
+
+                customOptions.forEach(o => o.classList.remove('selected'));
+                option.classList.add('selected');
+
+                if (imgUrl) {
+                    previewImg.src = imgUrl;
+                    previewName.textContent = value;
+                    destPreview.classList.add('show');
+                } else {
+                    destPreview.classList.remove('show');
+                }
+
+                customTrigger.classList.remove('error');
+                closeCustomDropdown();
+            });
+        });
+
+        function resetCustomSelect() {
+            const triggerText = customTrigger.querySelector('.trigger-text');
+            triggerText.innerHTML = '<span class="trigger-placeholder">اختر الوجهة</span>';
+            customOptions.forEach(o => o.classList.remove('selected'));
+            destPreview.classList.remove('show');
+            hiddenDestInput.value = '';
+            customTrigger.classList.remove('error');
+        }
+
+        // Image Error Handling
+        document.querySelectorAll('img').forEach(img => {
+            img.addEventListener('error', function() {
+                this.style.display = 'none';
+                const parent = this.parentElement;
+                if (parent && !parent.querySelector('.img-fallback')) {
+                    const fallback = document.createElement('div');
+                    fallback.className = 'img-fallback';
+                    fallback.style.cssText = 'width:100%;height:100%;min-height:200px;background:linear-gradient(135deg,#1a5f9e 0%,#0d3a5c 50%,#f26522 100%);display:flex;align-items:center;justify-content:center;color:white;font-size:3rem;border-radius:inherit;';
+                    fallback.textContent = '🌍';
+                    parent.insertBefore(fallback, this);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
