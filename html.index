@@ -55,7 +55,7 @@
             position: fixed;
             top: 100px;
             left: 20px;
-            z-index: 999;
+            z-index: 1001; /* above header (1000) so it stays visible */
             background: var(--orange);
             border: none;
             width: 50px;
@@ -1013,7 +1013,7 @@
     <header id="mainHeader">
         <nav class="nav-container">
             <a href="#home" class="logo">
-                <img src="logo.png" alt="نخلة بابل" class="logo-img">
+                <img src="logo.png" onerror="this.onerror=null; this.src='https://via.placeholder.com/150x65?text=Logo'" alt="نخلة بابل" class="logo-img">
             </a>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#home">الرئيسية</a></li>
@@ -1030,7 +1030,7 @@
     <section class="hero" id="home">
         <div class="hero-container">
             <div class="hero-content">
-                <img src="logo.png" alt="نخلة بابل للسياحة والسفر" class="hero-logo-main">
+                <img src="logo.png" onerror="this.onerror=null; this.src='https://via.placeholder.com/320x80?text=Palm+of+Babylon'" alt="نخلة بابل للسياحة والسفر" class="hero-logo-main">
                 <h1>اكتشف العالم مع <span>نخلة بابل</span></h1>
                 <p>نحن نصنع رحلات لا تُنسى. من حجز تذاكر الطيران إلى ترتيب أفضل الفنادق والجولات السياحية، نحن معك في كل خطوة.</p>
                 <div class="hero-buttons">
